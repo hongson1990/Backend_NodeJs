@@ -12,7 +12,7 @@ module.exports = {
       phonenumber: '01696103036',
       gender: 1,
       image: 'sex',
-      rodeId: 'ROLE',
+      roleId: 'ROLE',
       positionId: '01696103036',
       createdAt: new Date(),
       updatedAt: new Date()
