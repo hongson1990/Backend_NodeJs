@@ -99,7 +99,6 @@ let createNewUser = (data) => {
                 })
             } else {
                 let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-                console.log(data.avatar);
                 await db.User.create({
                     email: data.email,
                     password: hashPasswordFromBcrypt,
