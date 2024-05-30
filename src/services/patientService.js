@@ -2,7 +2,7 @@ import { where } from 'sequelize';
 import db from '../models/index';
 require('dotenv').config();
 
-let postBookAppointment = (date) => {
+let postBookAppointment = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!data.email || !data.doctorId || !data.timeType || !data.date) {
@@ -13,7 +13,7 @@ let postBookAppointment = (date) => {
             } else {
                 let user = await db.User.findOrCreate({
                     where: { email: data.email },
-                    default: {
+                    defaults: {
                         email: data.email,
                         roleId: 'R3'
                     }
@@ -25,7 +25,7 @@ let postBookAppointment = (date) => {
                         where: {
                             patientId: user[0].id
                         },
-                        default: {
+                        defaults: {
                             statusId: 'S1',
                             doctorId: data.doctorId,
                             patientId: user[0].id,
