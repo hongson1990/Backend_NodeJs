@@ -4,9 +4,6 @@ import db from '../models/index';
 let createSpecialty = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            // imageBase64: '',
-            // descriptionHTML: '',
-            // desciptionMarkdown: '',
             if (!data.name
                 || !data.imageBase64
                 || !data.descriptionHTML
@@ -34,6 +31,28 @@ let createSpecialty = (data) => {
     })
 }
 
+let GetAllSpecialty = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let data = await db.Specialty.findAll();
+            if (data && data.length > 0) {
+                data.map(item => {
+                    item.image = new Buffer(item.image, 'base64').toString('binary');
+                    return item
+                })
+            }
+            resolve({
+                errCode: 0,
+                errMessage: 'OK',
+                data
+            })
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
-    createSpecialty: createSpecialty
+    createSpecialty: createSpecialty,
+    GetAllSpecialty: GetAllSpecialty
 }
