@@ -2,8 +2,8 @@ import specialtyService from '../services/specialtyService'
 
 let createSpecialty = async (req, res) => {
     try {
-        let info = await specialtyService.createSpecialty(req.body);
-        return res.status(200).json(info);
+        let infor = await specialtyService.createSpecialty(req.body);
+        return res.status(200).json(infor);
     } catch (e) {
         console.log(e);
         return res.status(200).json({
@@ -15,8 +15,21 @@ let createSpecialty = async (req, res) => {
 
 let GetAllSpecialty = async (req, res) => {
     try {
-        let info = await specialtyService.GetAllSpecialty();
-        return res.status(200).json(info);
+        let infor = await specialtyService.GetAllSpecialty();
+        return res.status(200).json(infor);
+    } catch (e) {
+        console.log(e);
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server...'
+        })
+    }
+}
+
+let GetDetailSpecialtyById = async (req, res) => {
+    try {
+        let infor = await specialtyService.GetDetailSpecialtyById(req.query.id);
+        return res.status(200).json(infor);
     } catch (e) {
         console.log(e);
         return res.status(200).json({
@@ -28,5 +41,6 @@ let GetAllSpecialty = async (req, res) => {
 
 module.exports = {
     createSpecialty: createSpecialty,
-    GetAllSpecialty: GetAllSpecialty
+    GetAllSpecialty: GetAllSpecialty,
+    GetDetailSpecialtyById: GetDetailSpecialtyById
 }

@@ -52,7 +52,46 @@ let GetAllSpecialty = (data) => {
     })
 }
 
+let GetDetailSpecialtyById = (inputId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!inputId) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing parameter'
+                })
+            } else {
+                let data = await db.Specialty.findOne({
+                    where: {
+                        id: inputId
+                    },
+                    attributes: ['descriptionHTML', 'desciptionMarkdown']
+                });
+                if (data) {
+                    let arrDoctorId = [];
+                    let doctorSpecialty = await db.Doctor_Infor.findAll({
+                        where: {
+                            specialtyId: inputId
+                        }
+                    });
+                } else {
+                    data = {}
+                }
+
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Ok',
+                    data
+                });
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     createSpecialty: createSpecialty,
-    GetAllSpecialty: GetAllSpecialty
+    GetAllSpecialty: GetAllSpecialty,
+    GetDetailSpecialtyById: GetDetailSpecialtyById
 }
