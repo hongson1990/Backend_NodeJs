@@ -301,7 +301,7 @@ let getExtraInforDoctorById = (doctorId) => {
                     nest: true
                 });
 
-                if (!data) dataSchedule = []
+                if (!data) data = {};
                 resolve({
                     errCode: 0,
                     data: data

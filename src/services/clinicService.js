@@ -1,9 +1,10 @@
 import db from '../models/index';
 
-let createSpecialty = (data) => {
+let createClinic = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!data.name
+                || !data.address
                 || !data.imageBase64
                 || !data.descriptionHTML
                 || !data.desciptionMarkdown) {
@@ -12,8 +13,9 @@ let createSpecialty = (data) => {
                     errMessage: 'Missing parameter'
                 })
             } else {
-                await db.Specialty.create({
+                await db.Clinic.create({
                     name: data.name,
+                    address: data.address,
                     image: data.imageBase64,
                     descriptionHTML: data.descriptionHTML,
                     desciptionMarkdown: data.desciptionMarkdown
@@ -30,10 +32,10 @@ let createSpecialty = (data) => {
     })
 }
 
-let getAllSpecialty = (data) => {
+let getAllClinic = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let data = await db.Specialty.findAll();
+            let data = await db.Clinic.findAll();
             if (data && data.length > 0) {
                 data.map(item => {
                     item.image = new Buffer(item.image, 'base64').toString('binary');
@@ -51,7 +53,7 @@ let getAllSpecialty = (data) => {
     })
 }
 
-let getDetailSpecialtyById = (inputId, location) => {
+let getDetailClinicById = (inputId) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!inputId || !location) {
@@ -60,7 +62,7 @@ let getDetailSpecialtyById = (inputId, location) => {
                     errMessage: 'Missing parameter'
                 })
             } else {
-                let data = await db.Specialty.findOne({
+                let data = await db.Clinic.findOne({
                     where: {
                         id: inputId
                     },
@@ -101,8 +103,10 @@ let getDetailSpecialtyById = (inputId, location) => {
     })
 }
 
+
+
 module.exports = {
-    createSpecialty: createSpecialty,
-    getAllSpecialty: getAllSpecialty,
-    getDetailSpecialtyById: getDetailSpecialtyById
+    createClinic: createClinic,
+    getAllClinic: getAllClinic,
+    getDetailClinicById: getDetailClinicById
 }
