@@ -56,7 +56,7 @@ let getAllClinic = (data) => {
 let getDetailClinicById = (inputId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!inputId || !location) {
+            if (!inputId) {
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing parameter'
@@ -66,27 +66,17 @@ let getDetailClinicById = (inputId) => {
                     where: {
                         id: inputId
                     },
-                    attributes: ['descriptionHTML', 'desciptionMarkdown']
+                    attributes: ['name', 'address', 'descriptionHTML', 'desciptionMarkdown']
                 });
                 if (data) {
-                    let doctorSpecialty = [];
-                    if (location === 'ALL') {
-                        doctorSpecialty = await db.Doctor_Infor.findAll({
-                            where: {
-                                specialtyId: inputId
-                            },
-                            attributes: ['doctorId', 'provinceId']
-                        });
-                    } else {
-                        doctorSpecialty = await db.Doctor_Infor.findAll({
-                            where: {
-                                specialtyId: inputId,
-                                provinceId: location
-                            },
-                            attributes: ['doctorId', 'provinceId']
-                        });
-                    }
-                    data.doctorSpecialty = doctorSpecialty;
+                    let doctorClinic = [];
+                    doctorClinic = await db.Doctor_Infor.findAll({
+                        where: {
+                            clinicId: inputId
+                        },
+                        attributes: ['doctorId', 'provinceId']
+                    });
+                    data.doctorClinic = doctorClinic;
                 } else {
                     data = {}
                 }

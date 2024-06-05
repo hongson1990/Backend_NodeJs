@@ -64,7 +64,7 @@ let getDetailSpecialtyById = (inputId, location) => {
                     where: {
                         id: inputId
                     },
-                    attributes: ['descriptionHTML', 'desciptionMarkdown']
+                    attributes: ['name', 'descriptionHTML', 'desciptionMarkdown']
                 });
                 if (data) {
                     let doctorSpecialty = [];
