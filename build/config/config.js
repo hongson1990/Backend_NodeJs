@@ -1,15 +1,15 @@
-{
+"use strict";
+
+require('dotenv').config();
+module.exports = {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "sondata",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "logging": false,
-    "query": {
-      "raw": true
-    },
-    "timezone": "+07:00"
+    "username": process.env.DB_USERNAME,
+    "password": process.env.DB_PASSWORD,
+    "database": process.env.DB_DATABASE_NAME,
+    "host": process.env.DB_HOST,
+    "port": process.env.DB_POST,
+    "dialect": process.env.DB_DIALECT,
+    "timezone": "+09:00"
   },
   "test": {
     "username": "root",
@@ -25,4 +25,4 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
-}
+};

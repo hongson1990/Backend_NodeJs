@@ -22,6 +22,7 @@ let postBookAppointment = (data) => {
                 })
             } else {
                 let token = uuidv4();
+
                 await emailService.sendSimpleEmail({
                     receiverEmail: data.email,
                     patientName: data.fullName,
@@ -32,6 +33,7 @@ let postBookAppointment = (data) => {
 
                 });
 
+                //upsert patient
                 let user = await db.User.findOrCreate({
                     where: { email: data.email },
                     defaults: {
@@ -42,6 +44,7 @@ let postBookAppointment = (data) => {
                         firstName: data.fullName
                     }
                 });
+
                 //create a booking record
                 if (user && user[0]) {
                     await db.Booking.findOrCreate({
